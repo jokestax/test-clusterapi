@@ -2,10 +2,10 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: ec2-cluster
-  namespace: clusters
+  namespace: argocd
 spec:
   destination:
-    namespace: 'clusters'
+    namespace: clusters
     server: 'https://kubernetes.default.svc'
   source:
     path: workload
