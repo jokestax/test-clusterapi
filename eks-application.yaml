@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ec2-cluster
+  namespace: clusters
+spec:
+  destination:
+    namespace: 'clusters'
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: workload
+    repoURL: https://github.com/jokestax/test-clusterapi
+    targetRevision: HEAD
+  project: default #You can give a project name here
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 10
+      backoff:
+        duration: 30s
+        maxDuration: 15m0s
+        factor: 2
+
+
